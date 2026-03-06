@@ -275,21 +275,24 @@ function initializeCategoryFilter(advertisers) {
 function applyFilter(category) {
     var markers = getAllMarkers();
 
-    // Filter map markers
+    // Filter map markers (always show chamber marker)
     markers.forEach(function(markerData) {
         var advCategory = (markerData.advertiser.category && markerData.advertiser.category.trim()) || '';
-        if (category === '' || advCategory === category) {
+        if (category === '' || advCategory === category || isChamber(markerData.advertiser)) {
             showMarker(markerData);
         } else {
             hideMarker(markerData);
         }
     });
 
-    // Filter business list items and category headings
+    // Filter business list items and category headings (always show chamber)
     var items = businessListElement.querySelectorAll('.business-list-item, .category-heading');
     items.forEach(function(item) {
         if (category === '') {
             // Show all
+            item.style.display = '';
+        } else if (item.dataset.category === '_chamber') {
+            // Always show chamber entries
             item.style.display = '';
         } else if (item.classList.contains('category-heading')) {
             // Show heading only if it matches the selected category
@@ -299,6 +302,27 @@ function applyFilter(category) {
             item.style.display = (item.dataset.category === category) ? '' : 'none';
         }
     });
+
+    // Fit map bounds to visible markers or reset to default view
+    if (category !== '') {
+        var bounds = new mapboxgl.LngLatBounds();
+        markers.forEach(function(markerData) {
+            if (markerData.visible) {
+                bounds.extend(markerData.marker.getLngLat());
+            }
+        });
+        if (!bounds.isEmpty()) {
+            var map = getMap();
+            map.fitBounds(bounds, { padding: 60, maxZoom: 15, duration: 1000 });
+        }
+    } else {
+        var map = getMap();
+        map.flyTo({
+            center: CONFIG.mapbox.center,
+            zoom: CONFIG.mapbox.zoom,
+            duration: 1000
+        });
+    }
 }
 
 /**
