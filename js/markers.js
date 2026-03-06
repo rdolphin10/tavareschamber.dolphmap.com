@@ -251,6 +251,9 @@ function createMarker(advertisers, map) {
             calloutImg.setAttribute('src', CONFIG.client.logoPath);
             calloutImg.setAttribute('alt', CONFIG.client.logoAlt || 'Chamber Logo');
             calloutImg.className = 'chamber-callout-logo';
+            if (CONFIG.chamberCallout.logoWidth) {
+                calloutImg.style.width = CONFIG.chamberCallout.logoWidth + 'px';
+            }
             calloutEl.appendChild(calloutImg);
             new mapboxgl.Marker({
                 element: calloutEl,
