@@ -1,0 +1,923 @@
+/**
+ * STYLES.CSS - Core Layout and Structure
+ *
+ * This file contains layout, sizing, and positioning.
+ * DO NOT put colors, fonts, or client-specific styling here.
+ * Those belong in theme.css for easy customization.
+ *
+ * This file should rarely change between clients.
+ */
+
+/* ========================================
+   RESET AND BASE STYLES
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevent scrolling, map fills viewport */
+}
+
+/* ========================================
+   MAP CONTAINER (FULL SCREEN)
+   ======================================== */
+
+.map-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Map stays in background */
+}
+
+/* ========================================
+   TOP UI WRAPPER
+   On desktop: invisible, children position themselves independently.
+   On mobile: becomes a fixed flex column so everything stacks naturally.
+   ======================================== */
+
+.top-ui-wrapper {
+    /* Desktop: no positioning, children use position: fixed */
+}
+
+/* Logo + Directory Row
+   Desktop: children use position: fixed, row itself is invisible.
+   Mobile: becomes a flex row so logo and button sit side-by-side. */
+.logo-directory-row {
+    /* Desktop: no layout effect, children position independently */
+}
+
+/* ========================================
+   FLOATING UI LAYOUT - DESKTOP (>750px)
+   ======================================== */
+
+/* Chamber Logo - Top Left */
+.chamber-logo-container {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 100;
+    width: 200px;
+    background: white;
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chamber-logo-img {
+    display: block;
+    height: 75px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+/* Banners Wrapper - Holds both banners in a vertical stack */
+/* Centered in the space between the logo (230px) and right edge */
+.banners-wrapper {
+    position: fixed;
+    top: 10px;
+    /* Slightly right of true center to account for logo on left */
+    left: calc(50% + 30px);
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    max-width: 850px;
+    /* Prevent overlapping the logo or right edge */
+    max-width: min(850px, calc(100% - 240px));
+}
+
+/* Banner Container Base Styles */
+.banner-container {
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: hidden;
+    width: 100%;
+}
+
+.banner-link {
+    display: flex;
+    justify-content: center;
+}
+
+.banner-img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 130px;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* Banner 1 - Top */
+.banner1-container {
+    max-width: 850px;
+}
+
+/* Banner 2 (Slideshow) - Below Banner 1 */
+.banner2-container {
+    max-width: 700px;
+}
+
+.banner-slideshow {
+    position: relative;
+    width: 100%;
+}
+
+/* Slideshow Items */
+.slideshow-item {
+    display: none;
+    width: 100%;
+}
+
+.slideshow-item.active {
+    display: flex;
+    justify-content: center;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.slideshow-item img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 110px;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Advertisers Toggle Button - Below Chamber Logo */
+.advertisers-toggle {
+    position: fixed;
+    top: 105px; /* Below chamber logo */
+    left: 10px;
+    z-index: 100;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: #b71c1c;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.advertisers-toggle:hover {
+    background-color: #8b0000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+.toggle-icon {
+    font-size: 16px;
+}
+
+.toggle-arrow {
+    font-size: 12px;
+    transition: transform 0.2s;
+}
+
+/* Business Panel - Dropdown below Advertisers button */
+.business-panel {
+    position: fixed;
+    top: 155px; /* Below advertisers button */
+    left: 10px;
+    z-index: 99;
+    width: 280px;
+    max-height: 0;
+    overflow: hidden;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+    opacity: 0;
+}
+
+.business-panel.open {
+    max-height: calc(100vh - 180px);
+    opacity: 1;
+    overflow-y: auto;
+}
+
+.panel-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 2;
+}
+
+.panel-title {
+    margin: 0;
+    font-size: 16px;
+}
+
+.category-filter {
+    width: 100%;
+    margin-top: 8px;
+    padding: 6px 8px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: white;
+}
+
+.category-filter:focus {
+    outline: 2px solid #0066cc;
+    outline-offset: -1px;
+}
+
+.category-heading {
+    padding: 8px 16px 8px 13px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: #666;
+    background: #f0f0f0;
+    border-bottom: 1px solid #ddd;
+    border-left: 3px solid #999;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.business-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.business-list-item {
+    padding: 10px 16px 10px 13px;
+    border-bottom: 1px solid #eee;
+    border-left: 3px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+    font-size: 14px;
+}
+
+.business-list-item:hover {
+    background-color: #f0f0f0;
+    border-left-color: #ccc;
+}
+
+.business-list-item.active {
+    background-color: #e6f2ff;
+    border-left: 3px solid #0066cc;
+}
+
+.business-list-item:last-child {
+    border-bottom: none;
+}
+
+/* ========================================
+   FLOATING DOLPH ADVERTISE BUTTON (Bottom Right)
+   ======================================== */
+
+/* Container for collapsible advertise section */
+.dolph-advertise-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* Always-visible button */
+.dolph-advertise-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: #1a5276;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.dolph-advertise-btn:hover {
+    background: #154360;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+}
+
+.expand-arrow {
+    font-size: 12px;
+    transition: transform 0.2s;
+}
+
+/* Rotate arrow when expanded */
+.dolph-advertise-container.expanded .expand-arrow {
+    transform: rotate(180deg);
+}
+
+/* Expandable panel (hidden by default) */
+.dolph-expand-panel {
+    background: white;
+    padding: 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    text-align: center;
+    margin-bottom: 8px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+}
+
+/* Expanded state */
+.dolph-advertise-container.expanded .dolph-expand-panel {
+    max-height: 280px;
+    opacity: 1;
+    padding: 12px 16px;
+}
+
+.dolph-panel-logo {
+    display: block;
+    max-width: 150px;
+    height: auto;
+    margin: 0 auto 10px auto;
+}
+
+.contact-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.contact-phone,
+.contact-email {
+    display: block;
+    font-size: 13px;
+    color: #0066cc;
+    text-decoration: none;
+    margin-bottom: 2px;
+    transition: color 0.2s;
+}
+
+.contact-phone:hover,
+.contact-email:hover {
+    color: #004499;
+    text-decoration: underline;
+}
+
+.dolph-website-link {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 6px 12px;
+    background: #1a5276;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.dolph-website-link:hover {
+    background: #154360;
+}
+
+/* ========================================
+   MAPBOX MARKER BOUNCE ANIMATION
+   ======================================== */
+
+/* Bounce animation keyframes */
+@keyframes marker-bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* Apply bounce animation to the SVG inside markers (not the marker container) */
+/* Also scale down the marker size */
+.mapboxgl-marker svg {
+    animation: marker-bounce 1s ease-in-out infinite;
+    transform-origin: bottom center;
+    scale: 0.75;
+}
+
+/* Pause animation on hover for better click targeting */
+.mapboxgl-marker:hover svg {
+    animation-play-state: paused;
+}
+
+/* Exclude chamber marker from bounce animation */
+.chamber-marker svg {
+    animation: none;
+    scale: 1;
+}
+
+/* Chamber callout logo over the lake */
+.chamber-callout {
+    pointer-events: none;
+}
+
+.chamber-callout-logo {
+    width: 200px;
+    height: auto;
+    border-radius: 6px;
+    border: 2px solid #1a5276;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* ========================================
+   MAPBOX POPUP CUSTOMIZATION
+   ======================================== */
+
+/* Style the Mapbox popup content */
+.mapboxgl-popup-content {
+    padding: 0;
+    border-radius: 8px;
+    max-width: 360px;
+    overflow: hidden;
+}
+
+/* Popup image in popup */
+.popup-business-card {
+    margin: 0;
+    width: 100%;
+    overflow: hidden;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.business-card-img {
+    width: 100%;
+    height: auto;
+    max-height: 400px; /* Will be dynamically adjusted based on available space */
+    display: block;
+    object-fit: contain;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+/* Popup content area - add padding to text elements */
+.popup-title,
+.popup-category,
+.popup-address,
+.popup-phone,
+.popup-description,
+.popup-buttons {
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+/* First element (title) gets top padding */
+.mapboxgl-popup-content > .popup-title:first-child {
+    margin-top: 12px;
+}
+
+/* Buttons get bottom margin before image */
+.popup-buttons {
+    margin-bottom: 12px;
+}
+
+/* If image is last child, no extra bottom margin needed */
+.mapboxgl-popup-content > .popup-business-card:last-child {
+    margin-bottom: 0;
+}
+
+/* If no image, last element gets bottom padding */
+.mapboxgl-popup-content > *:last-child:not(.popup-business-card) {
+    margin-bottom: 15px;
+}
+
+/* Combined popup divider for co-located businesses */
+.popup-divider {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 12px 0;
+}
+
+/* Close button styling */
+.mapboxgl-popup-close-button {
+    font-size: 20px;
+    padding: 8px;
+    right: 5px;
+    top: 5px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Popup anchor (the arrow/tip) */
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+    border-top-color: #fff;
+}
+
+/* Ensure popups appear above all UI elements */
+/* The popup needs to break out of the map's stacking context */
+.mapboxgl-map .mapboxgl-popup {
+    z-index: 9999 !important;
+}
+
+.mapboxgl-popup {
+    z-index: 9999 !important;
+}
+
+.mapboxgl-popup-content {
+    z-index: 9999 !important;
+}
+
+/* Give map controls layer a higher z-index to allow popups above fixed UI */
+.mapboxgl-control-container {
+    z-index: 50 !important;
+}
+
+/* Make map canvas lower so it doesn't create stacking issues */
+.mapboxgl-canvas {
+    z-index: 0 !important;
+}
+
+/* ========================================
+   TABBED POPUP FOR CO-LOCATED BUSINESSES
+   ======================================== */
+
+/* Container constrains popup height and enables scroll on panels */
+.popup-tabs-container {
+    display: flex;
+    flex-direction: column;
+    max-height: 70vh;
+}
+
+/* Tab buttons row */
+.popup-tab-buttons {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid #ddd;
+    flex-shrink: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    background: #f5f5f5;
+}
+
+.popup-tab-btn {
+    flex: 1;
+    padding: 10px 12px;
+    border: none;
+    background: #f5f5f5;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    border-bottom: 3px solid transparent;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+.popup-tab-btn:hover {
+    background: #e8e8e8;
+    color: #333;
+}
+
+.popup-tab-btn.active {
+    background: white;
+    color: #1a5276;
+    border-bottom-color: #1a5276;
+}
+
+/* Tab panels */
+.popup-tab-panel {
+    display: none;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.popup-tab-panel.active {
+    display: block;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN - TABLET (751px - 1100px)
+   ======================================== */
+
+@media (max-width: 1100px) {
+    /* Smaller chamber logo */
+    .chamber-logo-container {
+        width: 160px;
+    }
+
+    .chamber-logo-img {
+        height: 50px;
+        max-width: 140px;
+    }
+
+    /* Position banners to the right of chamber logo */
+    .banners-wrapper {
+        left: 180px;
+        right: 10px;
+        width: auto;
+        transform: none;
+        max-width: none;
+    }
+
+    .banner-img {
+        max-height: 90px;
+    }
+
+    .slideshow-item img {
+        max-height: 75px;
+    }
+
+    .advertisers-toggle {
+        top: 80px;
+    }
+
+    .business-panel {
+        top: 130px;
+    }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN - SMALL SCREENS (Phones <=750px)
+
+   On mobile, the top-ui-wrapper becomes a fixed flex column.
+   All children lose their fixed positioning and flow naturally.
+   No hardcoded top values needed - everything stacks automatically.
+   ======================================== */
+
+@media (max-width: 750px) {
+        /* Top UI Wrapper becomes the single fixed container */
+    .top-ui-wrapper {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        pointer-events: none; /* Allow map clicks through gaps */
+    }
+
+    /* Re-enable pointer events on actual UI elements */
+    .top-ui-wrapper > * {
+        pointer-events: auto;
+    }
+
+    /* Banners lose fixed positioning - flow inside the wrapper */
+    .banners-wrapper {
+        position: static;
+        width: 100%;
+        transform: none;
+        max-width: none;
+    }
+
+    .banner-img {
+        max-height: 75px;
+    }
+
+    .slideshow-item img {
+        max-height: 60px;
+    }
+
+    /* Logo + Directory row: horizontal layout below banners */
+    .logo-directory-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* Chamber logo loses fixed positioning - flows inside the row */
+    .chamber-logo-container {
+        position: static;
+        width: auto;
+        padding: 5px;
+    }
+
+    .chamber-logo-img {
+        height: 40px;
+        max-width: 80px;
+    }
+
+    /* Advertisers Button - flows inside the logo-directory-row */
+    .advertisers-toggle {
+        position: static;
+        width: auto;
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+
+    .toggle-text {
+        display: inline;
+    }
+
+    /* Business Panel - flows inside the wrapper */
+    .business-panel {
+        position: static;
+        width: 100%;
+    }
+
+    .business-panel.open {
+        max-height: calc(100vh - 250px);
+    }
+
+    /* Smaller Dolph elements on mobile */
+    .dolph-advertise-container {
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .dolph-advertise-btn {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .dolph-advertise-container.expanded .dolph-expand-panel {
+        padding: 10px 12px;
+    }
+
+    .contact-name {
+        font-size: 12px;
+    }
+
+    .contact-phone,
+    .contact-email {
+        font-size: 11px;
+    }
+
+    .dolph-website-link {
+        font-size: 11px;
+        padding: 5px 10px;
+    }
+}
+
+/* Very small phones (<=400px) */
+@media (max-width: 400px) {
+    .banner-img {
+        max-height: 60px;
+    }
+
+    .slideshow-item img {
+        max-height: 50px;
+    }
+
+    .chamber-logo-img {
+        height: 32px;
+        max-width: 60px;
+    }
+
+    /* Even smaller Dolph elements on very small phones */
+    .dolph-advertise-btn {
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+
+    .dolph-advertise-container.expanded .dolph-expand-panel {
+        padding: 8px 10px;
+    }
+
+    .contact-name,
+    .contact-phone,
+    .contact-email {
+        font-size: 10px;
+    }
+
+    .dolph-website-link {
+        font-size: 10px;
+        padding: 4px 8px;
+    }
+
+    .popup-tabs-container {
+        max-height: 60vh;
+    }
+
+    .popup-tab-btn {
+        padding: 8px 8px;
+        font-size: 12px;
+    }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN - MOBILE LANDSCAPE
+   ======================================== */
+
+@media (max-width: 900px) and (orientation: landscape) {
+    /* Landscape: Keep desktop-like layout but smaller */
+    .chamber-logo-container {
+        top: 5px;
+        left: 5px;
+        padding: 4px;
+    }
+
+    .chamber-logo-img {
+        height: 35px;
+    }
+
+    .banners-wrapper {
+        top: 5px;
+    }
+
+    .banner-img,
+    .slideshow-item img {
+        max-height: 65px;
+    }
+
+    .advertisers-toggle {
+        top: 55px;
+        left: 5px;
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+
+    .business-panel {
+        top: 95px;
+        left: 5px;
+        max-width: 250px;
+    }
+
+    .business-panel.open {
+        max-height: calc(100vh - 110px);
+    }
+
+    /* Smaller Dolph elements in landscape */
+    .dolph-advertise-container {
+        bottom: 5px;
+        right: 5px;
+    }
+
+    .dolph-advertise-btn {
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+
+    .dolph-advertise-container.expanded .dolph-expand-panel {
+        padding: 8px 10px;
+    }
+
+    .contact-name,
+    .contact-phone,
+    .contact-email {
+        font-size: 10px;
+    }
+
+    .dolph-website-link {
+        font-size: 10px;
+        padding: 4px 8px;
+    }
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+/* Hide element (used by JavaScript) */
+.hidden {
+    display: none !important;
+}
+
+/* Loading state (can be used for loading spinners) */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}

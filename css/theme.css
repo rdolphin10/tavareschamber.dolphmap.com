@@ -1,0 +1,277 @@
+/**
+ * THEME.CSS - Client-Specific Visual Styling
+ *
+ * This file contains all colors, fonts, and brand-specific styling.
+ * Customize this file for each client to match their print maps.
+ *
+ * Uses CSS custom properties (variables) for easy updates.
+ * To change a color, just update the variable value below.
+ */
+
+/* ========================================
+   CSS CUSTOM PROPERTIES (VARIABLES)
+   ======================================== */
+
+:root {
+    /* PRIMARY COLORS - Main brand colors */
+    --color-primary: #1a5276;       /* Primary brand color (buttons, accents) */
+    --color-primary-dark: #123a54;  /* Darker shade for hover states */
+    --color-primary-light: #2471a3; /* Lighter shade for backgrounds */
+
+    /* SECONDARY COLORS - Supporting colors */
+    --color-secondary: #2980b9;     /* Secondary brand color (teal accent) */
+    --color-secondary-dark: #2171a3; /* Darker shade */
+
+    /* TEXT COLORS */
+    --color-text-primary: #333333;   /* Main text color (dark gray) */
+    --color-text-secondary: #666666; /* Secondary text (medium gray) */
+    --color-text-light: #999999;     /* Light text (light gray) */
+    --color-text-white: #ffffff;     /* White text for dark backgrounds */
+
+    /* BACKGROUND COLORS */
+    --color-bg-primary: #ffffff;     /* Main background (white) */
+    --color-bg-secondary: #f5f5f5;   /* Secondary background (light gray) */
+    --color-bg-accent: #e6f2ff;      /* Accent background (light blue) */
+
+    /* BORDER AND DIVIDER COLORS */
+    --color-border: #dddddd;         /* Default border color */
+    --color-border-dark: #cccccc;    /* Darker border */
+
+    /* TYPOGRAPHY */
+    --font-family-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-family-heading: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    --font-size-base: 16px;          /* Base font size */
+    --font-size-small: 14px;         /* Small text */
+    --font-size-large: 18px;         /* Large text */
+
+    --font-weight-normal: 400;       /* Normal text weight */
+    --font-weight-semibold: 600;     /* Semibold */
+    --font-weight-bold: 700;         /* Bold */
+
+    /* SHADOWS */
+    --shadow-small: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.15);
+    --shadow-large: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* ========================================
+   APPLY THEME TO ELEMENTS
+   ======================================== */
+
+/* Body and Text */
+body {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-base);
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-primary);
+}
+
+/* ========================================
+   BUSINESS PANEL
+   ======================================== */
+
+.business-panel {
+    background-color: var(--color-bg-primary);
+}
+
+.panel-header {
+    background-color: var(--color-bg-primary);
+    border-bottom-color: var(--color-border);
+}
+
+.panel-title {
+    font-family: var(--font-family-heading);
+    color: var(--color-primary);
+    font-weight: var(--font-weight-bold);
+}
+
+.business-list-item {
+    color: var(--color-text-primary);
+    border-bottom-color: var(--color-border);
+}
+
+.business-list-item:hover {
+    background-color: var(--color-bg-secondary);
+}
+
+.business-list-item.active {
+    background-color: var(--color-bg-accent);
+    border-left-color: var(--color-primary);
+}
+
+/* Banner Styling */
+.banner {
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: var(--shadow-small);
+}
+
+.banner:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-medium);
+}
+
+/* Search Bar */
+.search-input {
+    font-family: var(--font-family-primary);
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-primary);
+    border-color: var(--color-border);
+}
+
+.search-input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-bg-accent);
+}
+
+.search-input::placeholder {
+    color: var(--color-text-light);
+}
+
+.search-clear {
+    color: var(--color-text-secondary);
+}
+
+.search-clear:hover {
+    color: var(--color-primary);
+}
+
+/* ========================================
+   MAPBOX POPUP THEME
+   ======================================== */
+
+.mapboxgl-popup-content {
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    box-shadow: var(--shadow-large);
+}
+
+.mapboxgl-popup-close-button {
+    color: var(--color-text-secondary);
+}
+
+.mapboxgl-popup-close-button:hover {
+    color: var(--color-primary);
+    background-color: transparent;
+}
+
+/* Custom styles for popup content (defined in markers.js) */
+.popup-title {
+    font-size: 16px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: 4px;
+}
+
+.popup-category {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: 4px;
+}
+
+.popup-address {
+    font-size: 13px;
+    color: var(--color-text-primary);
+    margin-bottom: 3px;
+}
+
+.popup-phone {
+    font-size: 13px;
+    color: var(--color-primary);
+    margin-bottom: 3px;
+}
+
+.popup-description {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid var(--color-border);
+}
+
+.popup-link {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 6px 12px;
+    background-color: var(--color-primary);
+    color: var(--color-text-white);
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: var(--font-weight-semibold);
+    transition: background-color 0.3s ease;
+}
+
+.popup-link:hover {
+    background-color: var(--color-primary-dark);
+}
+
+/* Popup buttons container */
+.popup-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.popup-buttons .popup-link {
+    margin-top: 0;
+    flex: 1;
+    text-align: center;
+    min-width: 110px;
+}
+
+/* Get Directions button - secondary color */
+.popup-directions {
+    background-color: var(--color-secondary);
+}
+
+.popup-directions:hover {
+    background-color: var(--color-secondary-dark);
+}
+
+/* ========================================
+   CUSTOMIZATION NOTES
+   ======================================== */
+
+/*
+ * TO CUSTOMIZE FOR A NEW CLIENT:
+ *
+ * 1. UPDATE COLORS:
+ *    - Change --color-primary to match client's main brand color
+ *    - Change --color-secondary for their secondary color
+ *    - Adjust other colors as needed to match print map
+ *
+ * 2. UPDATE FONTS:
+ *    - Change --font-family-primary for their preferred font
+ *    - Adjust font sizes if needed (bigger/smaller text)
+ *
+ * 3. PREVIEW:
+ *    - Open index.html in a browser
+ *    - Verify colors match client's print map
+ *    - Check readability and contrast
+ *
+ * 4. FINE-TUNE:
+ *    - Adjust shadows, borders, spacing as needed
+ *    - Test on mobile devices
+ *
+ * EXAMPLE COLOR SCHEMES:
+ *
+ * Blue Theme (default):
+ *   --color-primary: #0066cc;
+ *   --color-secondary: #ff6600;
+ *
+ * Green Theme:
+ *   --color-primary: #2d8659;
+ *   --color-secondary: #ffa500;
+ *
+ * Red Theme:
+ *   --color-primary: #c41e3a;
+ *   --color-secondary: #0066cc;
+ *
+ * Purple Theme:
+ *   --color-primary: #6b46c1;
+ *   --color-secondary: #f6ad55;
+ */

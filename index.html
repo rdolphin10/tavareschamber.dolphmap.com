@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="J4VOKN-GRfU-xvPHxa3NI01KFD8q_wVJlr3-nqDbJxg" />
+
+    <!-- Primary SEO Meta Tags -->
+    <title>Tavares Chamber of Commerce Interactive Business Map</title>
+    <meta name="title" content="Tavares Chamber of Commerce Interactive Business Map">
+    <meta name="description" content="Explore local businesses in Tavares, Florida with our interactive map. Find restaurants, shops, services, and Chamber of Commerce members in Lake County.">
+    <meta name="keywords" content="Tavares, Florida, Chamber of Commerce, business directory, local businesses, Lake County, interactive map, restaurants, shops, services">
+    <meta name="author" content="Tavares Chamber of Commerce">
+    <meta name="robots" content="index, follow">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tavareschamber.dolphmap.com/">
+    <meta property="og:title" content="Tavares Chamber of Commerce Interactive Business Map">
+    <meta property="og:description" content="Explore local businesses in Tavares, Florida with our interactive map. Find restaurants, shops, services, and Chamber of Commerce members in Lake County.">
+    <meta property="og:image" content="https://tavareschamber.dolphmap.com/assets/logos/client-logo.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://tavareschamber.dolphmap.com/">
+    <meta property="twitter:title" content="Tavares Chamber of Commerce Interactive Business Map">
+    <meta property="twitter:description" content="Explore local businesses in Tavares, Florida with our interactive map. Find restaurants, shops, services, and Chamber of Commerce members in Lake County.">
+    <meta property="twitter:image" content="https://tavareschamber.dolphmap.com/assets/logos/client-logo.png">
+
+    <!-- Content Security Policy - Restricts which resources can be loaded -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' https://api.mapbox.com https://cdn.jsdelivr.net;
+        style-src 'self' 'unsafe-inline' https://api.mapbox.com https://cdn.jsdelivr.net;
+        img-src 'self' data: blob: https:;
+        connect-src 'self' https://api.mapbox.com https://*.mapbox.com https://events.mapbox.com;
+        worker-src blob:;
+        child-src blob:;
+        font-src 'self' https://api.mapbox.com;
+    ">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://tavareschamber.dolphmap.com/">
+
+    <!-- Mapbox GL JS CSS - Required for map styling -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.css" rel="stylesheet"
+          integrity="sha384-SDYx9Nwa5fE1fRuBplOPejrcbPOK/ql0Uym6hsGsTvnlC784P5LZhBJIbo8O/O+0"
+          crossorigin="anonymous">
+
+    <!-- Normalize CSS - Ensures consistent styling across browsers -->
+    <link href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css" rel="stylesheet"
+          integrity="sha384-M86HUGbBFILBBZ9ykMAbT3nVb0+2C7yZlF8X2CiKNpDOQjKroMJqIeGZ/Le8N2Qp"
+          crossorigin="anonymous">
+
+    <!-- Local CSS Files -->
+    <!-- styles.css contains core layout and structure (never changes per client) -->
+    <link href="css/styles.css?v=9" rel="stylesheet">
+    <!-- theme.css contains colors and fonts (customize per client) -->
+    <link href="css/theme.css?v=4" rel="stylesheet">
+
+    <!-- Structured Data (JSON-LD) for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Tavares Chamber of Commerce",
+        "url": "https://www.tavareschamber.com/",
+        "logo": "https://tavareschamber.dolphmap.com/assets/logos/client-logo.png",
+        "description": "The Tavares Chamber of Commerce promotes local businesses and economic development in Tavares, Florida and Lake County.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "300 East Main Street",
+            "addressLocality": "Tavares",
+            "addressRegion": "FL",
+            "postalCode": "32778",
+            "addressCountry": "US"
+        },
+        "telephone": "(352) 508-7397",
+        "areaServed": {
+            "@type": "City",
+            "name": "Tavares, Florida"
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- Full-Screen Map Container (Background) -->
+    <div id="map" class="map-container"></div>
+
+    <!-- ========================================
+         FLOATING UI ELEMENTS OVERLAY
+         ======================================== -->
+
+    <!-- Top UI Wrapper - Contains all top floating UI elements -->
+    <div class="top-ui-wrapper" id="top-ui-wrapper">
+
+        <!-- Banners Wrapper (holds both banners in a vertical stack) -->
+        <div class="banners-wrapper" id="banners-wrapper">
+            <!-- Top Banner - Banner 1 -->
+            <div class="banner-container banner1-container" id="banner1-container">
+                <a id="banner1-link" href="#" target="_blank" rel="noopener noreferrer" class="banner-link">
+                    <img id="banner1-img" src="" alt="Premium Sponsor" class="banner-img">
+                </a>
+            </div>
+
+            <!-- Slideshow Banner - Banner 2 (Below Banner 1) -->
+            <div class="banner-container banner2-container" id="banner2-container">
+                <div id="banner2-slideshow" class="banner-slideshow"></div>
+            </div>
+        </div>
+
+        <!-- Logo + Directory Row -->
+        <div class="logo-directory-row" id="logo-directory-row">
+            <!-- Chamber Logo -->
+            <div class="chamber-logo-container" id="chamber-logo-container">
+                <a href="https://tavareschamber.com" target="_blank" rel="noopener noreferrer" class="chamber-logo-link">
+                    <img id="client-logo" src="" alt="Chamber Logo" class="chamber-logo-img">
+                </a>
+            </div>
+
+            <!-- Advertisers Dropdown Button -->
+            <button class="advertisers-toggle" id="business-dropdown-toggle">
+                <span class="toggle-text">Interactive Directory</span>
+                <span class="toggle-arrow">&#9662;</span>
+            </button>
+        </div>
+
+        <!-- Business Panel (Dropdown below Advertisers button) -->
+        <div class="business-panel" id="business-panel">
+            <div class="panel-header">
+                <h3 class="panel-title">Business Directory</h3>
+                <select class="category-filter" id="category-filter" style="display: none;">
+                    <option value="">All Categories</option>
+                </select>
+            </div>
+            <ul class="business-list" id="business-list">
+                <!-- Business items populated by dropdown.js -->
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- Floating Dolph Advertise Button (Bottom Right) -->
+    <div class="dolph-advertise-container" id="dolph-advertise-container">
+        <!-- Expandable Panel (hidden by default) -->
+        <div class="dolph-expand-panel" id="dolph-expand-panel">
+            <img class="dolph-panel-logo" src="assets/logos/dolph-logo.jpg" alt="Dolph Map Company">
+            <div class="contact-name" id="contact-name"></div>
+            <a class="contact-phone" id="contact-phone" href=""></a>
+            <a class="contact-email" id="contact-email" href=""></a>
+            <a class="dolph-website-link" href="https://dolphmap.com" target="_blank" rel="noopener noreferrer">dolphmap.com</a>
+        </div>
+
+        <!-- Always-visible button -->
+        <button class="dolph-advertise-btn" id="dolph-advertise-btn">
+            <span>Advertise on this Map</span>
+            <span class="expand-arrow" id="expand-arrow">&#9652;</span>
+        </button>
+    </div>
+
+    <!-- External Libraries (loaded from CDN with SRI integrity checks) -->
+    <!-- Mapbox GL JS - Interactive map library -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.js"
+            integrity="sha384-YdJgyssBFdj/UAMGRiLYJXdsRxDAbbav575nc55Om4gbgL3pufpMsAnawAQeAkr7"
+            crossorigin="anonymous"></script>
+    <!-- PapaParse - CSV parsing library (simple and beginner-friendly) -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"
+            integrity="sha384-D/t0ZMqQW31H3az8ktEiNb39wyKnS82iFY52QPACM+IjKW3jDUhyIgh2PApRqJZs"
+            crossorigin="anonymous"></script>
+
+    <!-- Local JavaScript Files - Load in specific order -->
+    <!-- 1. config.js - Must load first as other files depend on CONFIG object -->
+    <script src="js/config.js?v=5"></script>
+    <!-- 2. utils.js - Helper functions used by other modules -->
+    <script src="js/utils.js?v=5"></script>
+    <!-- 3. layer-inspector.js - Debug tool for inspecting map layers -->
+    <script src="js/layer-inspector.js?v=3"></script>
+    <!-- 4. dolph-style.js - Dolph Map Company custom styling -->
+    <script src="js/dolph-style.js?v=3"></script>
+    <!-- 5. map.js - Initialize the map (depends on config.js) -->
+    <script src="js/map.js?v=3"></script>
+    <!-- 6. markers.js - Create and manage markers (depends on map.js and utils.js) -->
+    <script src="js/markers.js?v=5"></script>
+    <!-- 7. dropdown.js - Business list navigation (replaces search.js) -->
+    <script src="js/dropdown.js?v=4"></script>
+
+</body>
+</html>

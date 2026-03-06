@@ -1,0 +1,70 @@
+BUSINESS CARD PLACEHOLDER INSTRUCTIONS
+======================================
+
+All 26 business card placeholders have been created and are ready for you to replace with actual images.
+
+WHAT WAS DONE:
+--------------
+1. Updated the CSV file (data/advertisers.csv) with image paths for all 26 businesses
+2. Created placeholder images for each business in this folder
+3. Each placeholder shows the business name so you can easily identify which file to replace
+
+HOW TO REPLACE PLACEHOLDERS:
+----------------------------
+Simply save your actual business card images with the EXACT same filename as the placeholder.
+
+For example:
+- To add the business card for "Altman Bail Bonds, Inc." → save as: altman-bail-bonds-inc.jpg
+- To add the business card for "Puddle Jumpers" → save as: puddle-jumpers.jpg
+
+FILE LIST (26 businesses):
+-------------------------
+1. altman-bail-bonds-inc.jpg
+2. puddle-jumpers.jpg
+3. peralta-dvoran-pa.jpg
+4. infinity-financial-group.jpg
+5. belton-bail-bonds.jpg
+6. community-health-centers.jpg
+7. atwater-apartments.jpg
+8. dennie-and-the-jets.jpg
+9. da-construction-inc.jpg
+10. uf-health.jpg
+11. magical-meat-boutique.jpg
+12. south-state-bank.jpg
+13. deas-consulting-llc.jpg
+14. bru-incorporated.jpg
+15. san-joses-mexican-restaurant.jpg
+16. auto-ride-customs-ii.jpg
+17. prestige-ford.jpg
+18. cousin-vinnies-family-restaurant.jpg
+19. jorden-hayes-chrysler-jeep.jpg
+20. tavares-village.jpg
+21. cousins-kolaches.jpg
+22. tom-dolan-inspections.jpg
+23. titan-roofing.jpg
+24. adventhealth-centra-care.jpg
+25. symons-ac-heating-inc.jpg
+26. central-lakes-realty.jpg
+
+IMAGE GUIDELINES:
+-----------------
+- Supported formats: JPG, PNG, GIF, WebP (you can change the extension if needed)
+- Recommended width: 300-800 pixels (popup displays at max 400px wide)
+- Keep file size under 500KB for fast loading
+- Any aspect ratio works - the popup will scale automatically
+
+TIPS:
+-----
+- You can work on these one at a time or in batches
+- The placeholders will display on the map until you replace them
+- You can test the map after replacing each image to see how it looks
+- If you don't have an image for a business yet, just leave the placeholder
+
+TESTING:
+--------
+After replacing images, open index.html in a browser and:
+1. Click on a business marker
+2. The popup should show your new image
+3. Verify it scales properly and looks clean
+
+Need help? See the README.md in this folder for more details.
